@@ -63,38 +63,59 @@ function App() {
     sendControl({ type: 'key_up', key: e.key, code: e.code });
   };
 
- return (
+return (
   <div className="App">
-    <header className="App-header" style={{ zIndex: 2, position: 'relative' }}>
-      <h2>Remote Desktop Viewer</h2>
-      <input
-        type="text"
-        placeholder="Enter session ID"
-        value={sessionId}
-        onChange={e => setSessionId(e.target.value)}
-      />
-      <button onClick={connect} disabled={!sessionId || ws}>Connect</button>
-      <p>Status: {status}</p>
-    </header>
+    {/* Show header only if not connected */}
+    {!screenImage && (
+      <header className="App-header" style={{ zIndex: 2, position: 'relative' }}>
+        <h2>Remote Desktop Viewer</h2>
+        <input
+          type="text"
+          placeholder="Enter session ID"
+          value={sessionId}
+          onChange={e => setSessionId(e.target.value)}
+        />
+        <button onClick={connect} disabled={!sessionId || ws}>Connect</button>
+        <p>Status: {status}</p>
+      </header>
+    )}
+    {/* Show status overlay when connected */}
     {screenImage && (
-      <img
-        src={screenImage}
-        alt="Remote Screen"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          objectFit: 'contain',
-          zIndex: 1
-        }}
-        tabIndex={0}
-        onClick={handleImageClick}
-        onMouseMove={handleImageMove}
-        onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
-      />
+      <>
+        <div
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 0,
+            width: '100vw',
+            textAlign: 'center',
+            color: 'white',
+            zIndex: 2,
+            fontSize: '2rem',
+            textShadow: '0 0 8px #000'
+          }}
+        >
+          Status: {status}
+        </div>
+        <img
+          src={screenImage}
+          alt="Remote Screen"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            objectFit: 'contain',
+            zIndex: 1
+          }}
+          tabIndex={0}
+          onClick={handleImageClick}
+          onMouseMove={handleImageMove}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
+        />
+      </>
     )}
   </div>
 );
