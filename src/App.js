@@ -78,15 +78,24 @@ function App() {
         {/* TODO: Display remote screen here */}
         {screenImage && (
           <img
-            src={screenImage}
-            alt="Remote Screen"
-            style={{ maxWidth: '90vw', maxHeight: '70vh', border: '2px solid #fff', marginTop: 20 }}
-            tabIndex={0}
-            onClick={handleImageClick}
-            onMouseMove={handleImageMove}
-            onKeyDown={handleKeyDown}
-            onKeyUp={handleKeyUp}
-          />
+  ref={imgRef}
+  src={screenImage}
+  alt="Remote Screen"
+  style={{
+    width: '100vw',
+    height: '100vh',
+    objectFit: 'contain',
+    border: '2px solid #fff',
+    margin: 0,
+    padding: 0,
+    display: 'block'
+  }}
+  tabIndex={0}
+  onClick={handleImageClick}
+  onMouseMove={handleImageMove}
+  onKeyDown={handleKeyDown}
+  onKeyUp={handleKeyUp}
+/>
         )}
       </header>
     </div>
