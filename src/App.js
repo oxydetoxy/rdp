@@ -8,7 +8,8 @@ function App() {
   const [screenImage, setScreenImage] = useState(null);
 
   const connect = () => {
-     const socket = new WebSocket('wss://ae6d062949c6.ngrok-free.app');
+         const socket = new WebSocket('wss://6442d24442fc.ngrok-free.app');
+     
     socket.onopen = () => {
       socket.send(JSON.stringify({ type: 'viewer-join', sessionId }));
       setStatus('Connecting...');
