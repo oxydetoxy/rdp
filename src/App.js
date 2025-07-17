@@ -63,43 +63,41 @@ function App() {
     sendControl({ type: 'key_up', key: e.key, code: e.code });
   };
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Remote Desktop Viewer</h2>
-        <input
-          type="text"
-          placeholder="Enter session ID"
-          value={sessionId}
-          onChange={e => setSessionId(e.target.value)}
-        />
-        <button onClick={connect} disabled={!sessionId || ws}>Connect</button>
-        <p>Status: {status}</p>
-        {/* TODO: Display remote screen here */}
-        {screenImage && (
-          <img
-  ref={imgRef}
-  src={screenImage}
-  alt="Remote Screen"
-  style={{
-    width: '100vw',
-    height: '100vh',
-    objectFit: 'contain',
-    border: '2px solid #fff',
-    margin: 0,
-    padding: 0,
-    display: 'block'
-  }}
-  tabIndex={0}
-  onClick={handleImageClick}
-  onMouseMove={handleImageMove}
-  onKeyDown={handleKeyDown}
-  onKeyUp={handleKeyUp}
-/>
-        )}
-      </header>
-    </div>
-  );
+ return (
+  <div className="App">
+    <header className="App-header" style={{ zIndex: 2, position: 'relative' }}>
+      <h2>Remote Desktop Viewer</h2>
+      <input
+        type="text"
+        placeholder="Enter session ID"
+        value={sessionId}
+        onChange={e => setSessionId(e.target.value)}
+      />
+      <button onClick={connect} disabled={!sessionId || ws}>Connect</button>
+      <p>Status: {status}</p>
+    </header>
+    {screenImage && (
+      <img
+        src={screenImage}
+        alt="Remote Screen"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          objectFit: 'contain',
+          zIndex: 1
+        }}
+        tabIndex={0}
+        onClick={handleImageClick}
+        onMouseMove={handleImageMove}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+      />
+    )}
+  </div>
+);
 }
 
 export default App;
